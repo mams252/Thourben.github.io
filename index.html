@@ -291,36 +291,78 @@
       <!-- contact -->
       <div class="contact">
          <div class="container">
-            <div class="row ">
+            <div class="row">
                <div class="col-md-12">
                   <div class="titlepage text_align_center">
                      <h2>Contact Us</h2>
                   </div>
                </div>
-               <div class="col-md-10 offset-md-1 ">
-                  <form id="request" class="main_form">
+               <div class="col-md-10 offset-md-1">
+                  <form id="request" class="main_form" name="tourben-from-contact">
                      <div class="row">
-                        <div class="col-md-6 ">
-                           <input class="contactus" placeholder="Full Name" type="type" name=" Name"> 
+                        <div class="col-md-6">
+                           <label for="name" class="from-label"></label>
+                           <input class="contactus" placeholder="Name" type="name"
+                           aria-describedby="name" name="nama" />
+                        
                         </div>
                         <div class="col-md-6">
-                           <input class="contactus" placeholder="Email" type="type" name="Email">                          
+                           <label for="Email" class="from-label"></label>
+                           <input class="contactus" placeholder="Email" type="email"
+                           aria-describedby="email" name="email" />
                         </div>
                         <div class="col-md-6">
-                           <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">                          
+                           <label for="Phone Number"></label>
+                           <input class="contactus" placeholder="Phone Number" type="tel" 
+                           aria-describedby="tel" name="PhoneNumber"/>
+
                         </div>
                         <div class="col-md-6">
-                           <textarea class="textarea" placeholder="Message" type="type" Message="Name"></textarea>
+                           <label for="Message" class="from-label"></label>
+                           <textarea class="textarea" placeholder="Message" name="Message"></textarea>
                         </div>
                         <div class="col-md-12">
-                           <button class="send_btn">Send</button>
+                           <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+                              <strong>Pesan</strong> berhasil terkirim...!
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                           <div class="d-flex justify-content-center">
+                              <div class="spinner-border" role="status">
+                                <span class="visually-hidden d-none">Loading...</span>
+                              </div>
+                            </div>
+                           <button class="send_btn" type="submit">Send</button>
                         </div>
+                        
                      </div>
                   </form>
                </div>
             </div>
          </div>
       </div>
+      <script>
+         const scriptURL = 'https://script.google.com/macros/s/AKfycbzyD7zoN0N5i_yUb1JRoKBP89r3tanXpz5tQWrH1R-mTMB9Oqqp0A_UCUa3-75jkPZd/exec'
+         const form = document.forms['tourben-from-contact']
+         const send_btn = document.querySelector('.send_btn');
+         const visuallyhidden = document.querySelector('.visually-hidden');
+         const myalert = document.querySelector('.my-alert');
+
+       
+         form.addEventListener('submit', e => {
+           e.preventDefault()
+           visuallyhidden.classList.toggle ('d-none');
+           send_btn.classList.toggle ('d-none');
+           fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+             .then(response => {
+               visuallyhidden.classList.toggle ('d-none');
+               send_btn.classList.toggle ('d-none');
+               myalert.classList.toggle ('d-none');
+               from.reset();
+               console.log('Success!', response)
+            })
+             .catch(error => console.error('Error!', error.message))
+         })
+       </script>
       <!-- contact -->
       <!-- honey_bg -->
       <div class="honey_bg">
